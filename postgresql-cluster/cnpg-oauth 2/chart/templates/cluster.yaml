@@ -1,0 +1,60 @@
+{{- if .Values.cluster.enabled }}
+{{- $scope := required "oauth.scope is required" .Values.oauth.scope }}
+{{- if eq $scope "REPLACE_DATABASE_SCOPE" }}
+{{- fail "Set oauth.scope to your issuer's database scope before deploying the cluster" }}
+{{- end }}
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Values.cluster.name }}
+  namespace: {{ .Release.Namespace }}
+spec:
+  managed:
+    roles:
+      - name: taskmanager
+        ensure: present
+        login: true
+        passwordSecret:
+          name: taskmanager-db
+  instances: {{ .Values.cluster.instances }}
+  imageName: {{ .Values.cluster.imageName | quote }}
+  {{- with .Values.cluster.imagePullSecrets }}
+  imagePullSecrets:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  affinity:
+    nodeSelector:
+      kubernetes.io/arch: amd64
+  enableSuperuserAccess: false
+  bootstrap:
+    initdb:
+      database: {{ .Values.cluster.database | quote }}
+      owner: {{ .Values.cluster.owner | quote }}
+  storage:
+    {{- toYaml .Values.cluster.storage | nindent 4 }}
+  resources:
+    {{- toYaml .Values.cluster.resources | nindent 4 }}
+  postgresql:
+    parameters:
+      {{- $params := deepCopy .Values.cluster.parameters }}
+      {{- $_ := set $params "oauth_validator_libraries" "pg_oidc_validator" }}
+      {{- $_ := set $params "pg_oidc_validator.authn_field" .Values.oauth.authnField }}
+      {{- if .Values.oauth.discoveryUrlOverride }}
+      {{- $_ := set $params "pg_oidc_validator.discovery_url_override" .Values.oauth.discoveryUrlOverride }}
+      {{- end }}
+      {{- toYaml $params | nindent 6 }}
+    pg_hba:
+      {{- $map := ternary " map=oauth_app" "" (not (empty .Values.oauth.identity)) }}
+      - {{ printf "hostssl %s %s 0.0.0.0/0 oauth issuer=%s scope=%s validator=pg_oidc_validator%s" .Values.cluster.database .Values.cluster.owner (.Values.oauth.issuer | quote) ($scope | quote) $map | quote }}
+      - {{ printf "hostssl %s %s ::/0 oauth issuer=%s scope=%s validator=pg_oidc_validator%s" .Values.cluster.database .Values.cluster.owner (.Values.oauth.issuer | quote) ($scope | quote) $map | quote }}
+      - "hostssl appdb taskmanager 0.0.0.0/0 scram-sha-256"
+      - "hostssl appdb taskmanager ::/0 scram-sha-256"
+      # Prevent fallback to CNPG's default password rule for network logins.
+      # CNPG's fixed local/replication rules precede these user rules.
+      - "host all all 0.0.0.0/0 reject"
+      - "host all all ::/0 reject"
+    {{- if .Values.oauth.identity }}
+    pg_ident:
+      - {{ printf "oauth_app %s %s" (.Values.oauth.identity | quote) (.Values.cluster.owner | quote) | quote }}
+    {{- end }}
+{{- end }}

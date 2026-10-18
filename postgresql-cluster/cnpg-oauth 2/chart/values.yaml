@@ -1,0 +1,39 @@
+operator:
+  enabled: true
+  nameOverride: cloudnative-pg
+  fullnameOverride: cnpg-operator
+
+cluster:
+  enabled: true
+  name: postgres-oauth
+  instances: 1
+  imageName: harbor.qalab.tremolo.dev/lab/postgresql-oidc:18-oauth2-ca2
+  imagePullSecrets: []
+  database: appdb
+  owner: appuser
+  storage:
+    storageClass: local-path
+    size: 10Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      memory: 1Gi
+  # Optional additional PostgreSQL parameters (all values must be strings).
+  parameters: {}
+
+oauth:
+  issuer: https://vault-sts.apps.192-168-2-115.nip.io/psql
+  # Replace with a database-specific scope included in access tokens.
+  scope: openid
+  authnField: sub
+  # Set to the exact authenticated claim value to map it to cluster.owner.
+  # Leave empty only when that claim already equals appuser.
+  identity: "openunison-cp:task-manager:default"
+  # Optional alternative discovery base URL; does not change JWT issuer validation.
+  discoveryUrlOverride: ""
+
+traefik:
+  enabled: true
+  entryPoint: postgresql

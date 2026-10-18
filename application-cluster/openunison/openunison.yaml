@@ -1,0 +1,190 @@
+network:
+  openunison_host: "k8sou.192-168-2-115.nip.io"
+  dashboard_host: "k8sdb.192-168-2-115.nip.io"
+  api_server_host: "k8sapi.192-168-2-115.nip.io"
+  session_inactivity_timeout_seconds: 900
+  k8s_url: https://192.168.2.130:6443
+  force_redirect_to_tls: false
+  createIngressCertificate: true
+  ingress_type: nginx
+  ingress_annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: enterprise-ca
+
+cert_template:
+  ou: "Kubernetes"
+  o: "MyOrg"
+  l: "My Cluster"
+  st: "State of Cluster"
+  c: "MyCountry"
+
+
+
+myvd_config_path: "WEB-INF/myvd.conf"
+k8s_cluster_name: openunison-cp
+enable_impersonation: false
+
+certs:
+  use_k8s_cm: false
+
+trusted_certs:
+- name: ldaps
+  pem_b64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUdlakNDQldLZ0F3SUJBZ0lUSkFBQUFBblJQMm1yV21XR0xnQUFBQUFBQ1RBTkJna3Foa2lHOXcwQkFRc0YKQURCak1STXdFUVlLQ1pJbWlaUHlMR1FCR1JZRFpHVjJNUmN3RlFZS0NaSW1pWlB5TEdRQkdSWUhkSEpsYlc5cwpiekVYTUJVR0NnbVNKb21UOGl4a0FSa1dCMlZ1ZERKck1qSXhHakFZQmdOVkJBTVRFV1Z1ZERKck1qSXRRVVJHClUwUkRMVU5CTUI0WERUSTFNRFl3TmpFMU5EY3pNRm9YRFRJMk1EWXdOakUxTkRjek1Gb3dKVEVqTUNFR0ExVUUKQXhNYVlXUm1jMlJqTG1WdWRESnJNakl1ZEhKbGJXOXNieTVrWlhZd2dnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQQpBNElCRHdBd2dnRUtBb0lCQVFDbGFMSVFRa084ejZUUDFsY2MxNW04M1djUlJpV05rUDdDMkt0VGZmN0hTSU1SClBPam9raDZEd2JyUDA1WEtRNVcyTVF3dVhwKzg0VlhQaXhycWxtMkVjK05GRm01Yi9ncVRTMllwaGt1a3JrSFEKemRHR3BvTFJKUEFEUS9XdmNLSFRCUmp6Q05QYVFmZ1JZanBUWUoxcnI1NS9zTmNKZndlZU11RVpxV2JRQUZXSQp0WVVjZWhDSVJqODJQMW1LRGJ0bFg3K2gzbUt4ZlY0Q3dlY3VwelZVMDIwZ21BekVyOHZjeHAxMVlFSVRESmd3Ckl2NWNHdWRibFRkRkxmckxFZ1ZnaEZ5N2lyd2ZQQURzRDg3cVBXUktnM2ZkVWhBWC9KZjZOeG5yQ0ltTGNzUEQKNlVPeTRPMU9zZTFhaEZNQnc4NENFYUJ1R28zQ2h5bWdtVWR0SU9WUkFnTUJBQUdqZ2dOak1JSURYekF2QmdrcgpCZ0VFQVlJM0ZBSUVJaDRnQUVRQWJ3QnRBR0VBYVFCdUFFTUFid0J1QUhRQWNnQnZBR3dBYkFCbEFISXdIUVlEClZSMGxCQll3RkFZSUt3WUJCUVVIQXdJR0NDc0dBUVVGQndNQk1BNEdBMVVkRHdFQi93UUVBd0lGb0RCNEJna3EKaGtpRzl3MEJDUThFYXpCcE1BNEdDQ3FHU0liM0RRTUNBZ0lBZ0RBT0JnZ3Foa2lHOXcwREJBSUNBSUF3Q3dZSgpZSVpJQVdVREJBRXFNQXNHQ1dDR1NBRmxBd1FCTFRBTEJnbGdoa2dCWlFNRUFRSXdDd1lKWUlaSUFXVURCQUVGCk1BY0dCU3NPQXdJSE1Bb0dDQ3FHU0liM0RRTUhNRTRHQ1NzR0FRUUJnamNaQWdSQk1EK2dQUVlLS3dZQkJBR0MKTnhrQ0FhQXZCQzFUTFRFdE5TMHlNUzB4TWpJMk9ESXhNREV5TFRnd05USTRPVEUwTkMweU9URXpNekkwT1RRdwpMVEV3TURBd1JnWURWUjBSQkQ4d1BhQWZCZ2tyQmdFRUFZSTNHUUdnRWdRUVlTRkl6WmxEQ0VTVW8rdVBFdXVHCjhZSWFZV1JtYzJSakxtVnVkREpyTWpJdWRISmxiVzlzYnk1a1pYWXdIUVlEVlIwT0JCWUVGSVBJWXhBRHZicEwKNWRraEsxMnY0d0RqUlhqeE1COEdBMVVkSXdRWU1CYUFGSzFaMnNYZk0vdWlNbWJMMjRaWWxQRVZnUW1STUlIWgpCZ05WSFI4RWdkRXdnYzR3Z2N1Z2djaWdnY1dHZ2NKc1pHRndPaTh2TDBOT1BXVnVkREpyTWpJdFFVUkdVMFJECkxVTkJMRU5PUFdGa1puTmtZeXhEVGoxRFJGQXNRMDQ5VUhWaWJHbGpKVEl3UzJWNUpUSXdVMlZ5ZG1salpYTXMKUTA0OVUyVnlkbWxqWlhNc1EwNDlRMjl1Wm1sbmRYSmhkR2x2Yml4RVF6MWxiblF5YXpJeUxFUkRQWFJ5WlcxdgpiRzhzUkVNOVpHVjJQMk5sY25ScFptbGpZWFJsVW1WMmIyTmhkR2x2Ymt4cGMzUS9ZbUZ6WlQ5dlltcGxZM1JECmJHRnpjejFqVWt4RWFYTjBjbWxpZFhScGIyNVFiMmx1ZERDQnpnWUlLd1lCQlFVSEFRRUVnY0V3Z2I0d2dic0cKQ0NzR0FRVUZCekFDaG9HdWJHUmhjRG92THk5RFRqMWxiblF5YXpJeUxVRkVSbE5FUXkxRFFTeERUajFCU1VFcwpRMDQ5VUhWaWJHbGpKVEl3UzJWNUpUSXdVMlZ5ZG1salpYTXNRMDQ5VTJWeWRtbGpaWE1zUTA0OVEyOXVabWxuCmRYSmhkR2x2Yml4RVF6MWxiblF5YXpJeUxFUkRQWFJ5WlcxdmJHOHNSRU05WkdWMlAyTkJRMlZ5ZEdsbWFXTmgKZEdVL1ltRnpaVDl2WW1wbFkzUkRiR0Z6Y3oxalpYSjBhV1pwWTJGMGFXOXVRWFYwYUc5eWFYUjVNQTBHQ1NxRwpTSWIzRFFFQkN3VUFBNElCQVFCU2tUdWRvdmNGcHFDZjJnYVNnWmo5eEY2NVBrZzhiTlRxMS9GaTY5d29TMnZpCmcvOFdkVURJdXZhWjlFMHRqTE41WUJpa0RmTzJQcm05ek1oTEFYaCtlOVBkVEorYVVHRFN5TUNERWtNVXJmVk8KNnRKMlVnSEZnUXhiaUNkNWgxNWRDcVd2NlY2RERpWFYzTEJ3cjZmQWlRNDNOTURkYWFEbEpXWWMxT2VQWE5mMQp6MWpVK3FvMi9QalE0WXU1UkszcjJnSFVRc1NYK3pzMlBkUG5FN0sxemZGUmQzb1IyejRveUJ6b20wZWZEdDVpCnRzTHBGajNTclduME9CN1lEMWZIZU1WT3RTcXpoRTJYMUYrcERvUGo4REF6R2h3d0FwYm1pUG51cUZ5ZUhUb2oKNTJmY3dHc2NJalY5T2VvcGlDWFNvTi9hRkVXY3BQYXErblNzSk44bgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0t
+- name: enterprise-ca
+  pem_b64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURFVENDQWZtZ0F3SUJBZ0lVYmtiS2ZRN29ldXJuVHpyeWdIL0dDS0kzNkUwd0RRWUpLb1pJaHZjTkFRRUwKQlFBd0dERVdNQlFHQTFVRUF3d05aVzUwWlhKd2NtbHpaUzFqWVRBZUZ3MHlNakV4TURjeE5EUTFNakphRncwegpNakV4TURReE5EUTFNakphTUJneEZqQVVCZ05WQkFNTURXVnVkR1Z5Y0hKcGMyVXRZMkV3Z2dFaU1BMEdDU3FHClNJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUNucVZ3eVFvMjJyRzZuVVpjU2UvR21WZnI5MEt6Z3V4MDkKNDY4cFNTUWRwRHE5UlRRVU92ZkFUUEJXODF3QlJmUDEvcnlFaHNocnVBS2E5LzVoKzVCL3g4bmN4VFhwbThCNwp2RDdldHY4V3VyeUtQc0lMdWlkT0QwR1FTRVRvNzdBWE03RmZpUk9yMDFqN3c2UVB3dVB2QkpTcDNpa2lDL0RjCnZFNjZsdklFWE43ZFNnRGRkdnV2R1FORFdPWWxHWmhmNUZIVy81ZHJQSHVPOXp1eVVHK01NaTFpUCtSQk1QUmcKSWU2djhCcE9ncnNnZHRtWExhNFZNc1BNKzBYZkQwSDhjU2YvMkg2V1M0LzdEOEF1bG5QSW9LY1krRkxKUEFtMwpJVFI3L2w2UTBJUXVNU3c2QkxLYWZCRm5CVmNUUVNIN3lKZEFKNWdINFZZRHIyamtVWkwzQWdNQkFBR2pVekJSCk1CMEdBMVVkRGdRV0JCU2Y5RDVGS3dISUY3eFdxRi80OG4rci9SVFEzakFmQmdOVkhTTUVHREFXZ0JTZjlENUYKS3dISUY3eFdxRi80OG4rci9SVFEzakFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQTBHQ1NxR1NJYjNEUUVCQ3dVQQpBNElCQVFCN1BsMjkrclJ2eHArVHhLT3RCZGRLeEhhRTJVRUxuYmlkaFUvMTZRbW51VmlCQVhidUVSSEF2Y0phCm5hb1plY0JVQVJ0aUxYT2poOTFBNkFvNVpET2RETllOUkNnTGI2czdDVVhSKzNLenZWRmNJVFRSdGtTTkxKMTUKZzRoallyQUtEWTFIM09zd1EvU3JoTG9GQndneGJJQ1F5eFNLaXQ0OURrK2V4c3puMUJFNzE2aWlJVmdZT0daTwp5SWF5ekJZdW1Gc3M0MGprbWhsbms1ZW5hYjhJTDRUcXBDZS9xYnZtNXdOaktaVVozamJsM2QxVWVtcVlOdVlWCmNFY1o0UXltQUJZS3k0VkUzVFJZUmJJZGV0NFY2dVlIRjVZUHlFRWlZMFRVZStYVVJaVkFtaU9jcmtqblVIT3gKMWJqelJxSlpMNVR3b0ZDZzVlZUR6dVk0WlRjYwotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+- name: internal-ca
+  pem_b64: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURDVENDQWZHZ0F3SUJBZ0lSQUxqUmJOamh5YnJGdGIrT0RFTmlPdVV3RFFZSktvWklodmNOQVFFTEJRQXcKSGpFY01Cb0dBMVVFQXhNVGFXNTBaWEp1WVd3dFkyeDFjM1JsY2kxallUQWVGdzB5TmpBNU1ETXhOalUyTWpCYQpGdzB6TmpBNE16RXhOalUyTWpCYU1CNHhIREFhQmdOVkJBTVRFMmx1ZEdWeWJtRnNMV05zZFhOMFpYSXRZMkV3CmdnRWlNQTBHQ1NxR1NJYjNEUUVCQVFVQUE0SUJEd0F3Z2dFS0FvSUJBUUMzUk82Mmh1elBUZzZQRHlZQlduSTQKL1QzOVVUcGpoWW81NVVXZGtmQnZYQ0VDZURmZEhzd2wxTE9PL3hIdzBMUmVEb3FFazVVMDl5aFJlTWY1Rno2cQpMMTZza0VMNnZVQnRFdDM5RVQvSE5NNkxKQXVRVUF6blYwaVFZeUhUT3RGR2pIYmtXUURKQkpsclNLTmJOcEtqCjU3dG1Cd0JaWlNMNmdzb2RhbU5SOGdUTDl1R3g1MExRTFc0OExDY3RnTk1ZNFNsZ2VDVUZwQXhQY3YzRkNYR0wKOVY3c2R3Sk5GZzFmZ2VpWkZSQ20xWFZSVHROUHBEV2FEeEx6c2ZpdU1DZXFEcWJ4eTRWRUZhNEtNM3l5TFlvVwp4L3R1MmxPb1ZWY1l6UTdZb2tUUFg0dnhDY0xRblRnQ2REemZRY0pWNG51N2FzTk9va0NCOFJzOGJzTHpOWm56CkFnTUJBQUdqUWpCQU1BNEdBMVVkRHdFQi93UUVBd0lDcERBUEJnTlZIUk1CQWY4RUJUQURBUUgvTUIwR0ExVWQKRGdRV0JCUk8zcVVRQU9Fd2xkc2NTLzV0V1VPYW5OT1JPREFOQmdrcWhraUc5dzBCQVFzRkFBT0NBUUVBcWtlbwp2VDBmcm1QV2FlbERKV3ZXc3ZBU0puSU1kWmxtUGhnYU5YNVZLM2g4d0lVdjVqMVJ3MUlQdWdpWUFWdS9kYTd3CkE0TlhpeS85SURjN3VwN0Z3dncrcVNxM2VYT2ptSjdUZVNGSlY2QTV4SGJ3a2VuS3BFN01FakEzUG5ZL0pwL3AKbE5oQTc0eS83dklMdytRNHJ4TURZM3k0bGlKZy83a1JVaU90L1ZBUGhaUUdCU213Z1Jtc2FPeThJcFI4LzR5dQo4QUZpbXR6ZWJCWENmbmdpWi9henNYYXBsSVVHc2Z4bmx2YnNCMHR1ZXlJa0xhcVpIU2RBRDB4Mk1vNC9jQUU1CjA0Q0dtakJUMG00V0Z2blRvc2lPMmpmSlhTSEIwL0s2V3J6bmhxMU9BSjNORElkb3pZNTIzaWM2d0ttM3RRWmEKTmNmZzFUVkZ2V2RBeW11MlFRPT0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQ==
+
+monitoring:
+  prometheus_service_account: system:serviceaccount:monitoring:prometheus-k8s
+
+# Uncomment one of the below options for authentication
+
+# active_directory:
+#  base: cn=users,dc=ent2k22,dc=tremolo,dc=dev
+#  host: "192.168.2.141"
+#  port: "636"
+#  bind_dn: "cn=Administrator,cn=users,dc=ent2k22,dc=tremolo,dc=dev"
+#  con_type: ldaps
+#  srv_dns: "false"
+
+#oidc:
+#  client_id: xxxxxx
+#  issuer: https://xxxxxx.okta.com/
+#  user_in_idtoken: false
+#  domain: ""
+#  scopes: openid email profile groups
+#  claims:
+#    sub: sub
+#    email: email
+#    given_name: given_name
+#    family_name: family_name
+#    display_name: name
+#    groups: groups
+
+#github:
+#  client_id: d85d77c55a08c9bcbb15
+#  teams: TremoloSecurity/
+
+#saml:
+#  idp_url: "https://portal.apps.tremolo.io/idp-test/metadata/dfbe4040-cd32-470e-a9b6-809c8f857c40"
+
+
+  
+
+network_policies:
+  enabled: false
+  
+  ingress:
+    enabled: true
+    labels:
+      app.kubernetes.io/name: ingress-nginx
+  monitoring:
+    enabled: true
+    labels:
+      app.kubernetes.io/name: monitoring
+  apiserver:
+    enabled: false
+    labels:
+      app.kubernetes.io/name: kube-system
+
+services:
+  enable_tokenrequest: false
+  token_request_audience: api
+  token_request_expiration_seconds: 600
+  node_selectors: []
+  liveness_probe:
+  - /usr/local/openunison/bin/check_alive.sh
+  - "https://127.0.0.1:8443/check_alive"
+  - "issuer"
+  - "https://127.0.0.1:8443/check_alive"
+  - "alive"
+  readiness_probe:
+  - /usr/local/openunison/bin/check_alive.sh
+  - "https://127.0.0.1:8443/check_alive"
+  - "issuer"
+  - "https://127.0.0.1:8443/check_alive"
+  - "alive"
+  
+openunison:
+  enable_portal: false
+  enable_pre_check: false
+  keys:
+  - name: sts-vault
+    # can be keypair or certificate
+    import_into_ks: keypair
+    # the name of the Secret the keypair is stored in
+    tls_secret_name: vault-sts-keypair
+    # if true, but wasn't generated by OpenUnison, it will get replaced.  If using
+    # cert-manager or another generator for this key pair, set to false
+    replace_if_exists: true
+    create_data:
+      # important for self-signed
+      ca_cert: true
+      key_size: 2048
+      # sets the CN
+      server_name: vault-sts-keypair
+  replicas: 1
+  non_secret_data:
+    K8S_DB_SSO: oidc
+    PROMETHEUS_SERVICE_ACCOUNT: system:serviceaccount:monitoring:prometheus-k8s
+    SHOW_PORTAL_ORGS: "false"
+  secrets: []
+  enable_provisioning: false
+  use_standard_jit_workflow: true
+  # enable_activemq: true
+  # activemq_use_pvc: true
+  # role_attribute: portalGroups
+  # groups:
+  #   areJson: "true"
+  #az_groups:
+  #- CN=k8s-users,CN=Users,DC=ent2k12,DC=domain,DC=com
+
+#myvd_configmap: myvdconfig
+
+# For Namespace as a Service
+
+# database:
+#   hibernate_dialect: org.hibernate.dialect.MariaDBDialect
+#   quartz_dialect: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+#   driver: org.mariadb.jdbc.Driver
+#   url: jdbc:mariadb://mariadb.mariadb.svc.cluster.local:3306/unison
+#   user: unison
+#   validation: SELECT 1
+#   maxcons: 10
+#   maxidlecons: 10
+
+#smtp:
+#  host: blackhole.blackhole.svc.cluster.local
+#  port: 1025
+#  user: "none"
+#  from: donotreply@domain.com
+#  tls: false
+
+sts:
+  endpoints:
+  - name: postgresql
+    host_in_openunison: true
+    audience: postgresql.apps.192-168-2-171.nip.io
+    path: /psql
+    azRules:
+    - scope: filter
+      constraint: "(objectClass=*)"
+    issuer:
+      host: vault-sts.apps.192-168-2-115.nip.io
+      keypair: sts-vault
+      path: /psql
+    injector:
+      label: psql-sts
+      token_environment_variable_name: PSQL_TOKEN_FILE
+      label_value_environment_variable_name: PSQL_TOKEN_ENABLED
+      explicit_certificate_trust: true
+    additionalAttributes:
+    - target: scope
+      type: static
+      source: openid
+
+operator:
+  mutators:
+   - injector-vault
+   - injector-psql
