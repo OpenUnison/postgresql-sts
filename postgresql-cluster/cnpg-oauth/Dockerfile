@@ -1,5 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG POSTGRES_IMAGE=ghcr.io/cloudnative-pg/postgresql:18-standard-trixie
+ARG VALIDATOR_REF='1.1.0'
 FROM --platform=linux/amd64 ${POSTGRES_IMAGE} AS build
 USER root
 ARG VALIDATOR_REF=ba9c4cb2dc9bd2e9779c7a33f7a30c9bb8c97862

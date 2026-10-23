@@ -1,0 +1,8 @@
+CREATE TABLE IF NOT EXISTS task_manager_tasks (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    title VARCHAR(200) NOT NULL CHECK (length(trim(title)) > 0),
+    description VARCHAR(5000) NOT NULL DEFAULT '',
+    status VARCHAR(20) NOT NULL CHECK (status IN ('TODO','IN_PROGRESS','DONE')),
+    due_date DATE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

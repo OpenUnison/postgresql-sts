@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: task-manager
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/tasks}
+    username: ${DB_USERNAME:tasks}
+    password: ${DB_PASSWORD:}
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 10000
+  sql:
+    init:
+      mode: ${DB_INIT_MODE:always}
+server:
+  port: 8080
+  shutdown: graceful
+  error:
+    include-message: never
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db
